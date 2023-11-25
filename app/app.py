@@ -16,7 +16,7 @@ import pandas as pd
 import plotly.express as px
 from loguru import logger
 
-app =  dash.Dash(__name__)
+app = dash.Dash(__name__)
 server = app.server
 
 # PREDICTION API URL 
