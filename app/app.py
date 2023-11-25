@@ -21,7 +21,7 @@ server = app.server
 
 # PREDICTION API URL 
 api_url = os.getenv('API_URL')
-api_url = "http://{}:8001/api/v1/predict".format(api_url)
+api_url = "http://{}:5001/api/v1/predict".format(api_url)
 
 # Load data from csv
 def load_data():
@@ -117,10 +117,17 @@ def update_output_div(input_value):
     if input_value is None or input_value.strip() == '':
         return None 
     else:
+       myreq = {
+        "inputs": [
+            {
+               input_value
+            }
+        ]
+      }
        headers =  {"Content-Type":"application/json", "accept": "application/json"}
 
        # POST call to the API
-       response = requests.post(api_url, data=json.dumps(input_value), headers=headers)
+       response = requests.post(api_url, data=json.dumps(myreq), headers=headers)
        data = response.json()
        logger.info("Response: {}".format(data))
 
