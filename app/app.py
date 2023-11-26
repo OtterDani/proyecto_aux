@@ -117,9 +117,8 @@ def update_output_div(input_value):
     if input_value is None or input_value.strip() == '':
         return None 
     else:
-       input_w=f'"{input_value}"'
        myreq = {
-               "text": input_w
+               "text": input_value
                }
        headers =  {"Content-Type":"application/json", "accept": "application/json"}
 
