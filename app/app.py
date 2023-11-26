@@ -143,9 +143,49 @@ def update_output_div(n_clicks, input_value):
            cluster_label = data.get("cluster_label")
            label=""
            if cluster_label == 11: 
-               label="PRESTACIÓN DE SERVICIOS"
+               label="INFRAESTRUCTURA"
            elif cluster_label==22: 
                label="SALUD"
+           elif cluster_label==1: 
+               label="OTROS"
+           elif cluster_label==2: 
+               label="OTROS"
+           elif cluster_label==3: 
+               label="OTROS"
+           elif cluster_label==4: 
+               label="OTROS"
+           elif cluster_label==5: 
+               label="OTROS"
+           elif cluster_label==6: 
+               label="OTROS"
+           elif cluster_label==7: 
+               label="OTROS"
+           elif cluster_label==8: 
+               label="OTROS"
+           elif cluster_label==9: 
+               label="OTROS"
+           elif cluster_label==10: 
+               label="OTROS"
+           elif cluster_label==12: 
+               label="OTROS"
+           elif cluster_label==13: 
+               label="OTROS"
+           elif cluster_label==14: 
+               label="OTROS"
+           elif cluster_label==15: 
+               label="OTROS"
+           elif cluster_label==16: 
+               label="OTROS"
+           elif cluster_label==17: 
+               label="OTROS"
+           elif cluster_label==18: 
+               label="OTROS"
+           elif cluster_label==19: 
+               label="OTROS"
+           elif cluster_label==21: 
+               label="OTROS"
+           elif cluster_label==23: 
+               label="OTROS"            
            else:
                label= "OTROS"
 
