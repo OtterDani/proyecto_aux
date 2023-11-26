@@ -119,26 +119,15 @@ def update_output_div(input_value):
     else:
        input_w=f'"{input_value}"'
        myreq = {
-        "inputs": 
-            {
                "text": input_w
-            }
-      }
+               }
        headers =  {"Content-Type":"application/json", "accept": "application/json"}
 
        # POST call to the API
        response = requests.post(api_url, data=json.dumps(myreq), headers=headers)
        data = response.json()
-       
-       try:
-           data = response.json()["cluster_label"]
-           logger.info("Response: {}".format(data))
-           result = "EL SECTOR CORRESPIENTE ES: " + str(data)
-           return result 
-       except json.decoder.JSONDecodeError as e:
-           print("Error decoding JSON:", e)
-           return print("Response text:", response.text)
-
+       logger.info("Response: {}".format(data))
+       result = "EL SECTOR CORRESPIENTE ES: " + str(data["cluster_label"])
        
 if __name__ == "__main__":
     app.run_server(debug=True)
