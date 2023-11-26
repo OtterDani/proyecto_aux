@@ -8,7 +8,7 @@ Created on Sat Nov 11 16:24:10 2023
 import dash
 from dash import dcc  # dash core components
 from dash import html # dash html components
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import requests
 import json
 import os
@@ -90,7 +90,14 @@ app.layout = html.Div([
                      "color": "white"}), 
     
     html.Br(),
-    
+    html.Br(),
+    html.Button('Haga clic para obtener el sector', id='boton', 
+                style={"font-family": "Helvetica",
+                       'font-size': 20, 
+                        'text-align': "center", 
+                        'width': '200px', 
+                        'margin-left': '550px'} ),
+    html.Br(),
     html.H6(html.Div(id='resultado'), 
             style={"font-family": "Helvetica",
                    "text-align": "center", 
@@ -111,9 +118,14 @@ app.layout = html.Div([
 
 @app.callback(
     Output(component_id='resultado', component_property='children'),
-    [Input(component_id='input', component_property='value')]
+    [Input(component_id='boton', component_property='n_clicks')],
+    [State(component_id='input', component_property='value')],
+    prevent_initial_call=True
 )
-def update_output_div(input_value):
+def update_output_div(n_clicks, input_value):
+    if n_clicks is None:
+        return dash.no_update
+    
     if input_value is None or input_value.strip() == '':
         return None 
     else:
@@ -141,7 +153,7 @@ def update_output_div(input_value):
             logger.error("Error al decodificar la respuesta JSON: {}".format(e))
             result = "Error al procesar la respuesta JSON de la API."
     
-    return result
+    return json.dumps(myreq) + "    " + result + "    " 
 
 if __name__ == "__main__":
     app.run_server(debug=True)
