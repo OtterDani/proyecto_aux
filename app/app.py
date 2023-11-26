@@ -21,7 +21,7 @@ server = app.server
 
 # PREDICTION API URL 
 api_url = os.getenv('API_URL')
-api_url = "http://{}:5001/api/v1/predict".format(api_url)
+api_url = "http://{}:8000/api/predict".format(api_url)
 
 # Load data from csv
 def load_data():
@@ -117,12 +117,12 @@ def update_output_div(input_value):
     if input_value is None or input_value.strip() == '':
         return None 
     else:
+       input_w=f'"{input_value}"'
        myreq = {
-        "inputs": [
+        "inputs": 
             {
-               input_value
+               "text": input_w
             }
-        ]
       }
        headers =  {"Content-Type":"application/json", "accept": "application/json"}
 
@@ -132,9 +132,9 @@ def update_output_div(input_value):
        logger.info("Response: {}".format(data))
 
        # Pick result to return from json format
-       result = data["predictions"][0]
+       result =data
        
-       return result 
+       return f'Ha ingresado: {result}' 
 
 if __name__ == "__main__":
     app.run_server(debug=True)
