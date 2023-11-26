@@ -21,7 +21,7 @@ server = app.server
 
 # PREDICTION API URL 
 api_url = os.getenv('API_URL')
-api_url = "http://{}:8002/predict".format(api_url)
+api_url = "http://{}:8002/predict/".format(api_url)
 
 # Load data from csv
 def load_data():
