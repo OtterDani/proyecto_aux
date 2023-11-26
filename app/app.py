@@ -21,7 +21,7 @@ server = app.server
 
 # PREDICTION API URL 
 api_url = os.getenv('API_URL')
-api_url = "http://{}:8000/predict".format(api_url)
+api_url = "http://{}:8002/predict".format(api_url)
 
 # Load data from csv
 def load_data():
@@ -123,10 +123,25 @@ def update_output_div(input_value):
        headers =  {"Content-Type":"application/json", "accept": "application/json"}
 
        # POST call to the API
-       response = requests.post(api_url, data=json.dumps(myreq), headers=headers)
-       data = response.json()
-       logger.info("Response: {}".format(data))
-       result = "EL SECTOR CORRESPIENTE ES: " + str(data["cluster_label"])
-       
+       try:
+           response = requests.post(api_url, data=json.dumps(myreq), headers=headers)
+           response.raise_for_status()
+           data = response.json()
+           logger.info("Response: {}".format(data))
+           cluster_label = data.get("cluster_label")
+    
+           if cluster_label is not None:
+                result = "EL SECTOR CORRESPONDIENTE ES: " + str(cluster_label)
+           else:
+                result = "La respuesta no tiene la clave 'cluster_label'."
+       except requests.exceptions.RequestException as e:
+            logger.error("Error en la solicitud a la API: {}".format(e))
+            result = "Error al comunicarse con la API."
+       except json.decoder.JSONDecodeError as e:
+            logger.error("Error al decodificar la respuesta JSON: {}".format(e))
+            result = "Error al procesar la respuesta JSON de la API."
+    
+    return result
+
 if __name__ == "__main__":
     app.run_server(debug=True)
