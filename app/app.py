@@ -141,9 +141,16 @@ def update_output_div(n_clicks, input_value):
            data = response.json()
            logger.info("Response: {}".format(data))
            cluster_label = data.get("cluster_label")
-    
+           label=""
+           if cluster_label == 11: 
+               label="PRESTACIÓN DE SERVICIOS"
+           elif cluster_label==22: 
+               label="SALUD"
+           else:
+               label= "OTROS"
+
            if cluster_label is not None:
-                result = "EL SECTOR CORRESPONDIENTE ES: " + str(cluster_label)
+                result = "EL SECTOR CORRESPONDIENTE ES: " + label
            else:
                 result = "La respuesta no tiene la clave 'cluster_label'."
        except requests.exceptions.RequestException as e:
